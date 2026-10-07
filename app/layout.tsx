@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Altamira — Luxury Shortlet Apartment Management",
-  description: "Mobile-first executive shortlet apartment management, calendar booking, and financial reporting.",
+  description: "Executive shortlet apartment management, calendar booking, and financial reporting.",
   icons: {
     icon: "/favicon.ico",
   },
@@ -25,7 +25,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#090d16",
+  themeColor: "#f8fafc",
 };
 
 export default function RootLayout({
@@ -36,9 +36,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full dark antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-slate-950 text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-amber-500 selection:text-slate-950">
+      <body className="min-h-full bg-slate-50 text-slate-900 flex flex-col font-sans overflow-x-hidden selection:bg-blue-900 selection:text-white">
         {children}
       </body>
     </html>

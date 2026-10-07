@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Apartment } from '@/lib/types';
-import { formatNaira } from '@/lib/utils';
-import { X, Building2, MapPin, Tag, Users, FileText } from 'lucide-react';
+import { X, Building2, MapPin, Tag } from 'lucide-react';
 
 interface ApartmentModalProps {
   isOpen: boolean;
@@ -104,71 +103,70 @@ export default function ApartmentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl relative my-auto animate-in fade-in zoom-in-95 duration-150">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/40 backdrop-blur-xs overflow-y-auto">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-5 shadow-xl relative my-auto animate-in fade-in duration-150">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-amber-500/10 text-amber-400 rounded-xl">
+            <div className="p-2 bg-blue-50 text-blue-900 rounded-xl">
               <Building2 className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">
-                {isEditing ? 'Edit Apartment Unit' : 'Add New Luxury Apartment'}
+              <h2 className="text-base font-bold text-slate-950">
+                {isEditing ? 'Edit Unit' : 'Add Luxury Unit'}
               </h2>
-              <p className="text-[10px] text-slate-400">Shortlet Apartment Configuration</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800/60 rounded-xl transition-colors cursor-pointer"
+            className="p-1.5 text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-3 p-2.5 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs">
+          <div className="mt-3 p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs font-medium">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-4 space-y-3.5">
+        <form onSubmit={handleSubmit} className="mt-4 space-y-3">
           {/* Name */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Apartment Name <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Unit Name <span className="text-blue-700">*</span>
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Altamira Penthouse 01"
-              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl px-3 py-2 text-xs outline-none transition-colors"
+              className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl px-3 py-2 text-xs outline-none transition-colors font-medium"
               required
             />
           </div>
 
           {/* Address */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Location / Address
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Location / Area
             </label>
             <div className="relative">
-              <MapPin className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="e.g. Victoria Island, Lagos"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors"
               />
             </div>
           </div>
 
           {/* Pricing Mode */}
-          <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-            <label className="text-xs font-semibold text-slate-300 block mb-2">
-              Booking Pricing Configuration <span className="text-amber-400">*</span>
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <label className="text-xs font-semibold text-slate-700 block mb-2">
+              Pricing Configuration <span className="text-blue-700">*</span>
             </label>
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -176,16 +174,16 @@ export default function ApartmentModal({
                 onClick={() => setPriceMode('fixed')}
                 className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                   priceMode === 'fixed'
-                    ? 'bg-amber-500/15 border-amber-500/50 text-white'
-                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'bg-blue-50 border-blue-600 text-blue-950 font-bold'
+                    : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <div className="flex items-center gap-1.5 font-bold text-xs text-amber-300">
-                  <Tag className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1.5 text-xs text-blue-950 font-bold">
+                  <Tag className="w-3.5 h-3.5 text-blue-700" />
                   <span>Fixed Rate</span>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-1 leading-tight">
-                  Manager charges fixed daily rate automatically.
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Preset daily rate
                 </p>
               </button>
 
@@ -194,35 +192,35 @@ export default function ApartmentModal({
                 onClick={() => setPriceMode('manual_input')}
                 className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                   priceMode === 'manual_input'
-                    ? 'bg-amber-500/15 border-amber-500/50 text-white'
-                    : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                    ? 'bg-blue-50 border-blue-600 text-blue-950 font-bold'
+                    : 'bg-white border-slate-200 text-slate-600 hover:text-slate-900'
                 }`}
               >
-                <div className="flex items-center gap-1.5 font-bold text-xs text-amber-300">
-                  <Tag className="w-3.5 h-3.5" />
-                  <span>Flexible / Manual</span>
+                <div className="flex items-center gap-1.5 text-xs text-blue-950 font-bold">
+                  <Tag className="w-3.5 h-3.5 text-blue-700" />
+                  <span>Flexible</span>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-1 leading-tight">
-                  Manager enters negotiated amount per booking.
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Custom per booking
                 </p>
               </button>
             </div>
           </div>
 
-          {/* Default Price in Naira */}
+          {/* Price in Naira */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              {priceMode === 'fixed' ? 'Fixed Nightly Price (₦)' : 'Base / Reference Price (₦)'}
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              {priceMode === 'fixed' ? 'Fixed Daily Rate (₦)' : 'Reference Daily Rate (₦)'}
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-2 text-amber-400 font-bold text-sm">₦</span>
+              <span className="absolute left-3.5 top-2 text-slate-500 font-bold text-sm">₦</span>
               <input
                 type="number"
                 step="any"
                 value={defaultPrice}
                 onChange={(e) => setDefaultPrice(e.target.value)}
                 placeholder="150000"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white font-bold rounded-xl pl-8 pr-3 py-2 text-sm outline-none transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 font-bold rounded-xl pl-8 pr-3 py-2 text-sm outline-none transition-colors"
                 required
               />
             </div>
@@ -230,29 +228,29 @@ export default function ApartmentModal({
 
           {/* Assign Managers */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
               Assign to Manager(s)
             </label>
             {managers.length === 0 ? (
-              <p className="text-xs text-slate-500 italic bg-slate-950/60 p-2.5 rounded-xl border border-slate-800">
-                No managers registered yet. You can assign managers anytime.
+              <p className="text-xs text-slate-400 italic bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                No managers registered yet.
               </p>
             ) : (
-              <div className="max-h-28 overflow-y-auto bg-slate-950/80 border border-slate-800 rounded-xl p-2 space-y-1">
+              <div className="max-h-28 overflow-y-auto bg-slate-50 border border-slate-200 rounded-xl p-2 space-y-1">
                 {managers.map((m) => (
                   <label
                     key={m.id}
-                    className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-900 transition-colors cursor-pointer text-xs"
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white transition-colors cursor-pointer text-xs"
                   >
                     <input
                       type="checkbox"
                       checked={selectedManagerIds.includes(m.id)}
                       onChange={() => toggleManager(m.id)}
-                      className="rounded accent-amber-500"
+                      className="rounded accent-blue-950"
                     />
-                    <span className="text-slate-200 font-medium truncate">{m.name}</span>
+                    <span className="text-slate-800 font-medium truncate">{m.name}</span>
                     {!m.is_active && (
-                      <span className="text-[9px] text-amber-400 bg-amber-500/10 px-1 py-0.2 rounded ml-auto">
+                      <span className="text-[9px] text-slate-500 bg-slate-200 px-1 py-0.2 rounded ml-auto">
                         Pending
                       </span>
                     )}
@@ -264,15 +262,15 @@ export default function ApartmentModal({
 
           {/* Description */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Description / Notes (Optional)
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Description (Optional)
             </label>
             <textarea
               rows={2}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="e.g. 3-Bedroom waterfront penthouse with private pool"
-              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl p-2.5 text-xs outline-none transition-colors"
+              placeholder="e.g. Waterfront terrace, smart home features"
+              className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl p-2.5 text-xs outline-none transition-colors"
             />
           </div>
 
@@ -281,7 +279,7 @@ export default function ApartmentModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+              className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -289,9 +287,9 @@ export default function ApartmentModal({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer disabled:opacity-50"
+              className="flex-1 py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50"
             >
-              {loading ? 'Saving...' : isEditing ? 'Update Apartment' : 'Create Apartment'}
+              {loading ? 'Saving...' : isEditing ? 'Update Unit' : 'Create Unit'}
             </button>
           </div>
         </form>

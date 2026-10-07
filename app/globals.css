@@ -6,8 +6,15 @@
 }
 
 :root {
-  --background: #090d16;
-  --foreground: #f8fafc;
+  --background: #f8fafc;
+  --foreground: #090d16;
+  --surface: #ffffff;
+  --surface-subtle: #f1f5f9;
+  --border: #e2e8f0;
+  --blue-primary: #0f2942;
+  --blue-accent: #2563eb;
+  --blue-soft: #eff6ff;
+  --blue-border: #bfdbfe;
 }
 
 body {
@@ -15,33 +22,34 @@ body {
   color: var(--foreground);
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Safe area support for iOS and Android navigation bars */
+/* Safe area support for mobile devices */
 .pb-safe {
   padding-bottom: max(env(safe-area-inset-bottom, 0px), 8px);
 }
 
-/* Custom luxury scrollbar */
+/* Crisp minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #cbd5e1;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d97706;
+  background: #94a3b8;
 }
 
-/* Print Styles for formatted luxury report */
+/* Print Styles */
 @media print {
   header, nav, button, .no-print {
     display: none !important;
@@ -58,7 +66,7 @@ body {
   }
 
   th, td {
-    border: 1px solid #cccccc !important;
+    border: 1px solid #e2e8f0 !important;
     color: #000000 !important;
   }
 }

@@ -14,7 +14,7 @@ import ProfileView from '@/components/ProfileView';
 import BookingModal from '@/components/BookingModal';
 import ExpenseModal from '@/components/ExpenseModal';
 import ApartmentModal from '@/components/ApartmentModal';
-import { PlusCircle, Building2, Calendar, Receipt, Shield, Sparkles, AlertCircle } from 'lucide-react';
+import { PlusCircle, Building2 } from 'lucide-react';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -258,11 +258,11 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="w-full min-h-screen bg-slate-950 flex items-center justify-center">
+      <div className="w-full min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin" />
-          <span className="text-xs text-amber-400 font-medium tracking-wide uppercase">
-            Loading Altamira...
+          <div className="w-8 h-8 border-2 border-slate-200 border-t-blue-950 rounded-full animate-spin" />
+          <span className="text-xs text-slate-600 font-semibold tracking-wider uppercase">
+            Altamira
           </span>
         </div>
       </div>
@@ -277,7 +277,7 @@ export default function Home() {
   const isAdmin = user.role === 'admin';
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 text-slate-100 flex flex-col max-w-full overflow-x-hidden">
+    <div className="w-full min-h-screen bg-slate-50 text-slate-900 flex flex-col max-w-full overflow-x-hidden">
       {/* Top Header */}
       <Navbar
         user={user}
@@ -290,13 +290,13 @@ export default function Home() {
         {/* TAB 1: APARTMENTS */}
         {currentTab === 'apartments' && (
           <div className="flex flex-col gap-3.5">
-            {/* Header banner */}
+            {/* Header */}
             <div className="flex items-center justify-between gap-2">
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                  {isAdmin ? 'Luxury Apartment Units' : 'Your Managed Apartments'}
+                <h2 className="text-base sm:text-lg font-extrabold text-slate-950 tracking-tight">
+                  {isAdmin ? 'Apartment Units' : 'Assigned Units'}
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   {apartments.length} unit{apartments.length !== 1 ? 's' : ''} available
                 </p>
               </div>
@@ -304,7 +304,7 @@ export default function Home() {
               {isAdmin && (
                 <button
                   onClick={() => setApartmentModalState({ isOpen: true, apartment: null })}
-                  className="flex items-center gap-1.5 py-2 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer shrink-0"
+                  className="flex items-center gap-1.5 py-1.5 px-3 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all shadow-xs cursor-pointer shrink-0"
                 >
                   <PlusCircle className="w-3.5 h-3.5" />
                   <span>Add Unit</span>
@@ -314,11 +314,11 @@ export default function Home() {
 
             {/* Empty state for manager */}
             {!isAdmin && apartments.length === 0 && (
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 text-center">
-                <Building2 className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-                <h3 className="text-sm font-bold text-white mb-1">No Assigned Apartments</h3>
-                <p className="text-xs text-slate-400">
-                  An administrator has not assigned any apartments to your account yet. Please contact your admin.
+              <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-2xs">
+                <Building2 className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                <h3 className="text-sm font-bold text-slate-900 mb-1">No Units Assigned</h3>
+                <p className="text-xs text-slate-500">
+                  An administrator has not assigned any apartments to your account yet.
                 </p>
               </div>
             )}

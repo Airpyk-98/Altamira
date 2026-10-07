@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { User } from '@/lib/types';
-import { User as UserIcon, Phone, Lock, LogOut, CheckCircle2, Shield, Mail } from 'lucide-react';
+import { Phone, Lock, LogOut } from 'lucide-react';
 
 interface ProfileViewProps {
   user: User;
@@ -31,9 +31,9 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
     setStatusMsg(null);
     try {
       await onUpdateProfile({ name, phone });
-      setStatusMsg({ type: 'success', text: 'Profile contact details updated successfully' });
+      setStatusMsg({ type: 'success', text: 'Contact details updated' });
     } catch (err: any) {
-      setStatusMsg({ type: 'error', text: err.message || 'Failed to update profile' });
+      setStatusMsg({ type: 'error', text: err.message || 'Failed to update' });
     } finally {
       setLoading(false);
     }
@@ -70,21 +70,21 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
   };
 
   return (
-    <div className="w-full flex flex-col gap-4 max-w-full">
+    <div className="w-full flex flex-col gap-3.5 max-w-full">
       {/* User Header Card */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-sm">
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">
+          <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-950 font-bold text-lg">
             {user.name.charAt(0).toUpperCase()}
           </div>
           <div className="min-w-0">
-            <h2 className="text-base font-bold text-white truncate">{user.name}</h2>
-            <p className="text-xs text-slate-400 truncate">{user.email}</p>
+            <h2 className="text-base font-bold text-slate-950 truncate">{user.name}</h2>
+            <p className="text-xs text-slate-500 truncate">{user.email}</p>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-blue-50 text-blue-950 border border-blue-200">
                 {user.role}
               </span>
-              <span className="text-[10px] text-emerald-400 font-medium">● Active</span>
+              <span className="text-[10px] text-emerald-700 font-semibold">● Active</span>
             </div>
           </div>
         </div>
@@ -92,99 +92,99 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
 
       {statusMsg && (
         <div
-          className={`p-3 rounded-2xl text-xs font-medium ${
+          className={`p-3 rounded-xl text-xs font-semibold ${
             statusMsg.type === 'success'
-              ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-300'
-              : 'bg-rose-500/10 border border-rose-500/30 text-rose-300'
+              ? 'bg-emerald-50 border border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border border-rose-200 text-rose-800'
           }`}
         >
           {statusMsg.text}
         </div>
       )}
 
-      {/* Contact & Phone Information Form */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5">
+      {/* Contact Details Form */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs">
         <div className="flex items-center gap-2 mb-3">
-          <Phone className="w-4 h-4 text-amber-400" />
-          <h3 className="text-sm font-bold text-white">Contact & Phone Number</h3>
+          <Phone className="w-4 h-4 text-blue-700" />
+          <h3 className="text-sm font-bold text-slate-950">Contact & Phone</h3>
         </div>
 
         <form onSubmit={handleSaveInfo} className="space-y-3">
           <div>
-            <label className="text-xs text-slate-400 block mb-1">Full Name</label>
+            <label className="text-xs text-slate-600 font-semibold block mb-1">Full Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs outline-none focus:border-amber-500/50"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-600 focus:bg-white"
               required
             />
           </div>
 
           <div>
-            <label className="text-xs text-slate-400 block mb-1">Phone Number (WhatsApp)</label>
+            <label className="text-xs text-slate-600 font-semibold block mb-1">Phone Number (WhatsApp)</label>
             <input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="e.g. +234 803 123 4567"
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs outline-none focus:border-amber-500/50"
+              placeholder="+234 803 123 4567"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-600 focus:bg-white"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
+            className="w-full py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
           >
-            {loading ? 'Saving...' : 'Save Contact Details'}
+            {loading ? 'Saving...' : 'Save Contact Info'}
           </button>
         </form>
       </div>
 
       {/* Change Password Form */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5">
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs">
         <div className="flex items-center gap-2 mb-3">
-          <Lock className="w-4 h-4 text-amber-400" />
-          <h3 className="text-sm font-bold text-white">Change Account Password</h3>
+          <Lock className="w-4 h-4 text-blue-700" />
+          <h3 className="text-sm font-bold text-slate-950">Password</h3>
         </div>
 
         <form onSubmit={handleChangePassword} className="space-y-3">
           <div>
-            <label className="text-xs text-slate-400 block mb-1">Current Password</label>
+            <label className="text-xs text-slate-600 font-semibold block mb-1">Current Password</label>
             <input
               type="password"
               autoComplete="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="Enter current password"
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs outline-none focus:border-amber-500/50"
+              placeholder="Current password"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-600 focus:bg-white"
               required
             />
           </div>
 
           <div>
-            <label className="text-xs text-slate-400 block mb-1">New Password</label>
+            <label className="text-xs text-slate-600 font-semibold block mb-1">New Password</label>
             <input
               type="password"
               autoComplete="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="At least 6 characters"
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs outline-none focus:border-amber-500/50"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-600 focus:bg-white"
               required
             />
           </div>
 
           <div>
-            <label className="text-xs text-slate-400 block mb-1">Confirm New Password</label>
+            <label className="text-xs text-slate-600 font-semibold block mb-1">Confirm New Password</label>
             <input
               type="password"
               autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"
-              className="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-3 py-2 text-xs outline-none focus:border-amber-500/50"
+              className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3 py-2 text-xs outline-none focus:border-blue-600 focus:bg-white"
               required
             />
           </div>
@@ -192,9 +192,9 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer"
+            className="w-full py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all cursor-pointer"
           >
-            {loading ? 'Updating Password...' : 'Update Password'}
+            {loading ? 'Updating...' : 'Update Password'}
           </button>
         </form>
       </div>
@@ -202,10 +202,10 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
       {/* Logout Action */}
       <button
         onClick={onLogout}
-        className="w-full py-3 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 font-bold text-xs rounded-2xl flex items-center justify-center gap-2 transition-colors cursor-pointer"
+        className="w-full py-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer"
       >
         <LogOut className="w-4 h-4" />
-        <span>Log Out of Altamira</span>
+        <span>Log Out</span>
       </button>
     </div>
   );

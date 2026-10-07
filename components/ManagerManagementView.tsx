@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { User, Apartment } from '@/lib/types';
-import { formatDate } from '@/lib/utils';
-import { Shield, UserCheck, UserX, Crown, Building2, Phone, Mail, CheckCircle, AlertCircle } from 'lucide-react';
+import { Apartment } from '@/lib/types';
+import { Shield, Building2, Phone, Mail, Crown } from 'lucide-react';
 
 interface ManagerManagementViewProps {
   managers: any[];
@@ -50,19 +49,20 @@ export default function ManagerManagementView({
 
   return (
     <div className="w-full flex flex-col gap-3 max-w-full">
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4">
+      {/* Header */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs">
         <div className="flex items-center gap-2 mb-1">
-          <Shield className="w-4 h-4 text-amber-400" />
-          <h2 className="text-base font-bold text-white">Manager & Team Administration</h2>
+          <Shield className="w-4 h-4 text-blue-700" />
+          <h2 className="text-base font-bold text-slate-950">Team & Managers</h2>
         </div>
-        <p className="text-xs text-slate-400">
-          Approve manager sign-in activations, assign apartments, or promote managers to administrator.
+        <p className="text-xs text-slate-500">
+          Approve manager sign-in activations and assign apartments.
         </p>
       </div>
 
       <div className="flex flex-col gap-2.5">
         {managers.length === 0 ? (
-          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 text-center text-slate-500 text-xs">
+          <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center text-slate-400 text-xs shadow-2xs">
             No manager accounts registered yet.
           </div>
         ) : (
@@ -74,41 +74,41 @@ export default function ManagerManagementView({
             return (
               <div
                 key={mgr.id}
-                className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex flex-col gap-3 transition-all"
+                className="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 transition-all shadow-2xs"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className="text-sm font-bold text-white truncate">{mgr.name}</h3>
+                      <h3 className="text-sm font-bold text-slate-950 truncate">{mgr.name}</h3>
                       <span
                         className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                           isManagerAdmin
-                            ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-                            : 'bg-slate-800 text-slate-300'
+                            ? 'bg-blue-50 text-blue-900 border border-blue-200'
+                            : 'bg-slate-100 text-slate-700'
                         }`}
                       >
                         {mgr.role}
                       </span>
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
                           isActive
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                            : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                            : 'bg-rose-50 text-rose-700 border border-rose-200'
                         }`}
                       >
-                        {isActive ? 'Active' : 'Pending / Deactivated'}
+                        {isActive ? 'Active' : 'Pending Approval'}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-3 text-xs text-slate-400 mt-1 flex-wrap">
+                    <div className="flex items-center gap-3 text-xs text-slate-500 mt-1 flex-wrap">
                       <span className="flex items-center gap-1">
-                        <Mail className="w-3 h-3 text-slate-500" />
+                        <Mail className="w-3 h-3 text-slate-400" />
                         {mgr.email}
                       </span>
                       {mgr.phone && (
                         <span className="flex items-center gap-1">
-                          <Phone className="w-3 h-3 text-slate-500" />
+                          <Phone className="w-3 h-3 text-slate-400" />
                           {mgr.phone}
                         </span>
                       )}
@@ -121,22 +121,22 @@ export default function ManagerManagementView({
                       onClick={() => onToggleActive(mgr.id, isActive)}
                       className={`text-xs px-2.5 py-1.5 rounded-xl font-bold transition-colors cursor-pointer shrink-0 ${
                         isActive
-                          ? 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20'
-                          : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                          ? 'bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200'
+                          : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
                       }`}
                     >
-                      {isActive ? 'Deactivate' : 'Approve & Activate'}
+                      {isActive ? 'Deactivate' : 'Approve'}
                     </button>
                   )}
                 </div>
 
-                {/* Assigned Apartments Display */}
+                {/* Assigned Units */}
                 {!isManagerAdmin && (
-                  <div className="pt-2 border-t border-slate-800/80">
+                  <div className="pt-2 border-t border-slate-100">
                     <div className="flex items-center justify-between gap-2 mb-1.5">
-                      <span className="text-[11px] font-semibold text-slate-400 flex items-center gap-1">
-                        <Building2 className="w-3 h-3 text-amber-400" />
-                        Managed Units:
+                      <span className="text-[11px] font-semibold text-slate-500 flex items-center gap-1">
+                        <Building2 className="w-3 h-3 text-blue-700" />
+                        Assigned Units:
                       </span>
                       <button
                         onClick={() => {
@@ -146,9 +146,9 @@ export default function ManagerManagementView({
                             startAssigning(mgr);
                           }
                         }}
-                        className="text-[11px] text-amber-400 hover:text-amber-300 font-semibold cursor-pointer underline"
+                        className="text-[11px] text-blue-700 hover:text-blue-900 font-semibold cursor-pointer underline"
                       >
-                        {isAssigningThis ? 'Cancel' : 'Change Units'}
+                        {isAssigningThis ? 'Cancel' : 'Manage Units'}
                       </button>
                     </div>
 
@@ -158,69 +158,69 @@ export default function ManagerManagementView({
                           mgr.assigned_apartments.map((a: any) => (
                             <span
                               key={a.id}
-                              className="text-[10px] bg-slate-950 text-slate-300 px-2 py-0.5 rounded-md border border-slate-800"
+                              className="text-[10px] bg-slate-100 text-slate-800 font-medium px-2 py-0.5 rounded-md border border-slate-200"
                             >
                               {a.name}
                             </span>
                           ))
                         ) : (
-                          <span className="text-[11px] text-slate-500 italic">
+                          <span className="text-[11px] text-slate-400 italic">
                             No units assigned yet.
                           </span>
                         )}
                       </div>
                     ) : (
-                      /* Assignment Checkbox Editor */
-                      <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 mt-2 space-y-2">
-                        <p className="text-[11px] text-slate-400 font-medium">
-                          Select which apartments {mgr.name.split(' ')[0]} can manage:
+                      /* Checkbox list */
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 mt-2 space-y-2">
+                        <p className="text-[11px] text-slate-600 font-medium">
+                          Select units for {mgr.name.split(' ')[0]}:
                         </p>
                         <div className="max-h-36 overflow-y-auto space-y-1">
                           {apartments.map((apt) => (
                             <label
                               key={apt.id}
-                              className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-900 transition-colors cursor-pointer text-xs"
+                              className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-white transition-colors cursor-pointer text-xs"
                             >
                               <input
                                 type="checkbox"
                                 checked={selectedApts.includes(apt.id)}
                                 onChange={() => toggleApt(apt.id)}
-                                className="rounded accent-amber-500"
+                                className="rounded accent-blue-900"
                               />
-                              <span className="text-slate-200">{apt.name}</span>
+                              <span className="text-slate-800 font-medium">{apt.name}</span>
                             </label>
                           ))}
                         </div>
                         <button
                           onClick={() => saveAssignments(mgr.id)}
                           disabled={loadingId === mgr.id}
-                          className="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all cursor-pointer"
+                          className="w-full py-2 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all cursor-pointer"
                         >
-                          {loadingId === mgr.id ? 'Saving...' : 'Save Unit Assignments'}
+                          {loadingId === mgr.id ? 'Saving...' : 'Save Units'}
                         </button>
                       </div>
                     )}
                   </div>
                 )}
 
-                {/* Upgrade to Admin Action */}
+                {/* Upgrade Action */}
                 {!isManagerAdmin && (
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-500">Need admin privileges?</span>
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-[11px] text-slate-500">Admin privileges</span>
                     <button
                       onClick={() => {
                         if (
                           confirm(
-                            `Are you sure you want to promote ${mgr.name} to Administrator? They will have full administrative privileges.`
+                            `Promote ${mgr.name} to Administrator?`
                           )
                         ) {
                           onUpgradeToAdmin(mgr.id);
                         }
                       }}
-                      className="flex items-center gap-1 text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                      className="flex items-center gap-1 text-[11px] font-bold text-blue-950 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
                     >
-                      <Crown className="w-3.5 h-3.5" />
-                      <span>Upgrade to Admin</span>
+                      <Crown className="w-3.5 h-3.5 text-blue-700" />
+                      <span>Promote to Admin</span>
                     </button>
                   </div>
                 )}

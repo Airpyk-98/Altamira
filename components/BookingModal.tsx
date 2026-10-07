@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Apartment, Booking } from '@/lib/types';
 import { formatNaira } from '@/lib/utils';
-import { X, Lock, DollarSign, Calendar, User, Phone, FileText, Trash2, CheckCircle2 } from 'lucide-react';
+import { X, Lock, Calendar, User, Phone, FileText, Trash2 } from 'lucide-react';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -108,7 +108,7 @@ export default function BookingModal({
 
   const handleDelete = async () => {
     if (!booking?.id || !onDelete) return;
-    if (!confirm(`Are you sure you want to cancel the booking for ${booking.client_name}?`)) return;
+    if (!confirm(`Cancel booking for ${booking.client_name}?`)) return;
 
     setLoading(true);
     try {
@@ -122,47 +122,47 @@ export default function BookingModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl relative my-auto animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/40 backdrop-blur-xs overflow-y-auto">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-5 shadow-xl relative my-auto animate-in fade-in duration-150">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div>
-            <span className="text-[10px] font-bold tracking-wider uppercase text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-blue-950 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
               {apartment.name}
             </span>
-            <h2 className="text-base font-bold text-white mt-1">
+            <h2 className="text-base font-bold text-slate-950 mt-1">
               {isViewOnly ? 'Booking Details (Observer)' : isEditing ? 'Edit Booking' : 'Log New Booking'}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800/60 rounded-xl transition-colors cursor-pointer"
+            className="p-1.5 text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-3 p-2.5 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs">
+          <div className="mt-3 p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs font-medium">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-4 space-y-3.5">
+        <form onSubmit={handleSubmit} className="mt-4 space-y-3">
           {/* Client Name */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Client Name <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Client Name <span className="text-blue-700">*</span>
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <User className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="text"
                 disabled={isViewOnly}
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                placeholder="e.g. Chief Adeleke"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none transition-colors disabled:opacity-70"
+                placeholder="e.g. Senator Adeleke"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors disabled:opacity-75 font-medium"
                 required
               />
             </div>
@@ -170,103 +170,98 @@ export default function BookingModal({
 
           {/* Client Phone */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Client Phone / WhatsApp (Optional)
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Client Phone (Optional)
             </label>
             <div className="relative">
-              <Phone className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="tel"
                 disabled={isViewOnly}
                 value={clientPhone}
                 onChange={(e) => setClientPhone(e.target.value)}
                 placeholder="e.g. +234 803 123 4567"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none transition-colors disabled:opacity-70"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors disabled:opacity-75"
               />
             </div>
           </div>
 
           {/* Dates & Duration Summary */}
-          <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
-            <div className="flex items-center justify-between text-xs mb-1.5">
-              <span className="text-slate-400 flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-amber-400" />
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-3">
+            <div className="flex items-center justify-between text-xs mb-1">
+              <span className="text-slate-600 flex items-center gap-1 font-medium">
+                <Calendar className="w-3.5 h-3.5 text-blue-700" />
                 Duration ({nightsCount} night{nightsCount > 1 ? 's' : ''}):
               </span>
-              <span className="font-semibold text-amber-300">
+              <span className="font-bold text-blue-950">
                 {dates[0]} ➔ {dates[dates.length - 1]}
               </span>
             </div>
-            <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto pt-1">
+            <div className="flex flex-wrap gap-1 max-h-16 overflow-y-auto pt-1">
               {dates.map((d) => (
-                <span key={d} className="text-[10px] bg-slate-900 border border-slate-800 text-slate-300 px-1.5 py-0.5 rounded">
+                <span key={d} className="text-[10px] bg-white border border-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-medium">
                   {d}
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Pricing Logic Section */}
-          <div className="bg-slate-950/70 border border-slate-800 rounded-xl p-3 space-y-2">
+          {/* Pricing Section */}
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400">Pricing Mode:</span>
-              <span className="text-[11px] font-semibold text-amber-300 flex items-center gap-1">
-                {isFixed ? <Lock className="w-3 h-3 text-amber-400" /> : null}
-                {isFixed ? 'Fixed Rate (Admin Configured)' : 'Flexible / Manual Price'}
+              <span className="text-slate-600 font-medium">Pricing Mode:</span>
+              <span className="text-[11px] font-bold text-blue-950 flex items-center gap-1">
+                {isFixed && <Lock className="w-3 h-3 text-blue-700" />}
+                {isFixed ? 'Fixed Rate' : 'Flexible / Custom'}
               </span>
             </div>
 
             {isFixed ? (
-              <div>
-                <div className="flex items-center justify-between text-xs text-slate-300 py-1 border-t border-slate-800/80">
+              <div className="pt-1 border-t border-slate-200/80 space-y-1">
+                <div className="flex items-center justify-between text-xs text-slate-600">
                   <span>Nightly Rate:</span>
-                  <span className="font-bold text-white">{formatNaira(apartment.default_price)}</span>
+                  <span className="font-semibold text-slate-900">{formatNaira(apartment.default_price)}</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-emerald-400 font-bold py-1 border-t border-slate-800/80">
-                  <span>Total Amount Charged:</span>
+                <div className="flex items-center justify-between text-xs font-bold text-blue-950">
+                  <span>Total Amount:</span>
                   <span className="text-sm">{formatNaira(calculatedFixedTotal)}</span>
                 </div>
               </div>
             ) : (
-              <div>
-                <label className="text-[11px] font-medium text-slate-400 block mb-1">
-                  Total Amount Charged in Naira (₦):
+              <div className="pt-1 border-t border-slate-200/80">
+                <label className="text-[11px] font-medium text-slate-600 block mb-1">
+                  Total Amount (₦):
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-amber-400 font-bold text-xs">₦</span>
+                  <span className="absolute left-3 top-2 text-slate-500 font-bold text-xs">₦</span>
                   <input
                     type="number"
                     disabled={isViewOnly}
                     value={manualAmount}
                     onChange={(e) => setManualAmount(e.target.value)}
-                    placeholder="e.g. 450000"
-                    className="w-full bg-slate-900 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-8 pr-3 py-2 text-xs outline-none transition-colors disabled:opacity-70 font-semibold"
+                    placeholder="450000"
+                    className="w-full bg-white border border-slate-200 focus:border-blue-600 text-slate-900 rounded-xl pl-8 pr-3 py-1.5 text-xs outline-none transition-colors disabled:opacity-75 font-bold"
                     required
                   />
                 </div>
-                {nightsCount > 0 && manualAmount && (
-                  <p className="text-[10px] text-slate-400 mt-1">
-                    Effective rate: {formatNaira(parseFloat(manualAmount) / nightsCount)} /night
-                  </p>
-                )}
               </div>
             )}
           </div>
 
           {/* Notes */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Notes / Guest Requests (Optional)
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Notes (Optional)
             </label>
             <div className="relative">
-              <FileText className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <FileText className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <textarea
                 disabled={isViewOnly}
                 rows={2}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="e.g. Late check-in at 8pm; extra towels requested"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors disabled:opacity-70"
+                placeholder="e.g. VIP guest, airport transfer arranged"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors disabled:opacity-75"
               />
             </div>
           </div>
@@ -277,9 +272,9 @@ export default function BookingModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+                className="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
               >
-                Close (Observer Mode)
+                Close (Observer)
               </button>
             ) : (
               <>
@@ -288,7 +283,7 @@ export default function BookingModal({
                     type="button"
                     onClick={handleDelete}
                     disabled={loading}
-                    className="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 rounded-xl transition-colors cursor-pointer shrink-0"
+                    className="p-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-xl transition-colors cursor-pointer shrink-0"
                     title="Cancel Booking"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -298,7 +293,7 @@ export default function BookingModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+                  className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -306,7 +301,7 @@ export default function BookingModal({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-md shadow-amber-500/20 cursor-pointer disabled:opacity-50"
+                  className="flex-1 py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50"
                 >
                   {loading ? 'Saving...' : isEditing ? 'Update Booking' : 'Confirm Booking'}
                 </button>

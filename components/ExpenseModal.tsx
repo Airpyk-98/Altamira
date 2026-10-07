@@ -97,7 +97,7 @@ export default function ExpenseModal({
 
   const handleDelete = async () => {
     if (!expense?.id || !onDelete) return;
-    if (!confirm('Are you sure you want to delete this expense record?')) return;
+    if (!confirm('Delete this expense record?')) return;
 
     setLoading(true);
     try {
@@ -111,46 +111,45 @@ export default function ExpenseModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-2xl relative my-auto animate-in fade-in zoom-in-95 duration-150">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-slate-950/40 backdrop-blur-xs overflow-y-auto">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-5 shadow-xl relative my-auto animate-in fade-in duration-150">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-rose-500/10 text-rose-400 rounded-xl">
+            <div className="p-2 bg-rose-50 text-rose-600 rounded-xl">
               <Receipt className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">
-                {isEditing ? 'Edit Expense Record' : 'Log New Expense'}
+              <h2 className="text-base font-bold text-slate-950">
+                {isEditing ? 'Edit Expense' : 'Log Expense'}
               </h2>
-              <p className="text-[10px] text-slate-400">Shortlet Apartment Operational Cost</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800/60 rounded-xl transition-colors cursor-pointer"
+            className="p-1.5 text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {error && (
-          <div className="mt-3 p-2.5 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs">
+          <div className="mt-3 p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs font-medium">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-4 space-y-3.5">
+        <form onSubmit={handleSubmit} className="mt-4 space-y-3">
           {/* Apartment Selector */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Select Apartment <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Unit <span className="text-rose-600">*</span>
             </label>
             <div className="relative">
-              <Building2 className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <select
                 value={apartmentId}
                 onChange={(e) => setApartmentId(parseInt(e.target.value))}
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors font-medium"
                 required
               >
                 {apartments.map((apt) => (
@@ -164,18 +163,18 @@ export default function ExpenseModal({
 
           {/* Amount in Naira */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Expense Cost in Naira (₦) <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Cost in Naira (₦) <span className="text-rose-600">*</span>
             </label>
             <div className="relative">
-              <span className="absolute left-3.5 top-2.5 text-rose-400 font-bold text-sm">₦</span>
+              <span className="absolute left-3.5 top-2.5 text-rose-600 font-bold text-sm">₦</span>
               <input
                 type="number"
                 step="any"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                placeholder="e.g. 65000"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-rose-500/60 text-white font-bold rounded-xl pl-9 pr-3 py-2.5 text-sm outline-none transition-colors"
+                placeholder="65000"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-rose-600 focus:bg-white text-slate-900 font-extrabold rounded-xl pl-9 pr-3 py-2 text-sm outline-none transition-colors"
                 required
               />
             </div>
@@ -183,13 +182,13 @@ export default function ExpenseModal({
 
           {/* Expense Category */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Expense Category <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Category <span className="text-rose-600">*</span>
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl px-3 py-2.5 text-xs outline-none transition-colors"
+              className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl px-3 py-2 text-xs outline-none transition-colors font-medium"
               required
             >
               {EXPENSE_CATEGORIES.map((cat) => (
@@ -202,34 +201,34 @@ export default function ExpenseModal({
 
           {/* Expense Date */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
               Date Incurred
             </label>
             <div className="relative">
-              <Calendar className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <Calendar className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="date"
                 value={expenseDate}
                 onChange={(e) => setExpenseDate(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2.5 text-xs outline-none transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors"
                 required
               />
             </div>
           </div>
 
-          {/* Description (Optional) */}
+          {/* Description */}
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1">
-              Description / Notes (Optional)
+            <label className="text-xs font-semibold text-slate-700 block mb-1">
+              Description (Optional)
             </label>
             <div className="relative">
-              <FileText className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
+              <FileText className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <textarea
                 rows={2}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="e.g. 50 Litres generator diesel refill + servicing filter"
-                className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 text-white rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors"
+                placeholder="e.g. Diesel refill for generator"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:bg-white text-slate-900 rounded-xl pl-9 pr-3 py-2 text-xs outline-none transition-colors"
               />
             </div>
           </div>
@@ -241,7 +240,7 @@ export default function ExpenseModal({
                 type="button"
                 onClick={handleDelete}
                 disabled={loading}
-                className="p-2.5 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 rounded-xl transition-colors cursor-pointer shrink-0"
+                className="p-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-xl transition-colors cursor-pointer shrink-0"
                 title="Delete Expense"
               >
                 <Trash2 className="w-4 h-4" />
@@ -251,7 +250,7 @@ export default function ExpenseModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+              className="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -259,7 +258,7 @@ export default function ExpenseModal({
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 bg-rose-500 hover:bg-rose-400 text-white font-bold text-xs rounded-xl transition-all shadow-md shadow-rose-500/20 cursor-pointer disabled:opacity-50"
+              className="flex-1 py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50"
             >
               {loading ? 'Saving...' : isEditing ? 'Update Expense' : 'Log Expense'}
             </button>

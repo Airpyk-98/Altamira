@@ -62,6 +62,45 @@ export interface Expense {
   updated_at?: string;
 }
 
+export interface IndividualBookingLedgerItem {
+  id: number;
+  apartment_id: number;
+  apartment_name: string;
+  client_name: string;
+  client_phone?: string;
+  start_date: string;
+  end_date: string;
+  dates: string[];
+  nights_count: number;
+  rate_per_night: number;
+  total_amount: number;
+  booked_by_name?: string;
+  notes?: string;
+}
+
+export interface IndividualExpenseLedgerItem {
+  id: number;
+  apartment_id: number;
+  apartment_name: string;
+  category: string;
+  description?: string;
+  amount: number;
+  expense_date: string;
+  logged_by_name?: string;
+}
+
+export interface ItemizedTransaction {
+  id: string;
+  type: 'booking' | 'expense';
+  date: string;
+  apartment_id: number;
+  apartment_name: string;
+  title: string;
+  subtitle?: string;
+  amount: number;
+  raw_amount: number;
+}
+
 export interface DailyLedgerItem {
   date: string;
   apartment_id?: number;
@@ -95,5 +134,8 @@ export interface AnalyticsApiResponse {
     total_days: number;
   };
   summary: AnalyticsSummary;
+  individual_bookings: IndividualBookingLedgerItem[];
+  individual_expenses: IndividualExpenseLedgerItem[];
+  itemized_ledger: ItemizedTransaction[];
   daily_ledger: DailyLedgerItem[];
 }
