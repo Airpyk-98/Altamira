@@ -154,6 +154,7 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
             <label className="text-xs text-slate-400 block mb-1">Current Password</label>
             <input
               type="password"
+              autoComplete="current-password"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="Enter current password"
@@ -166,6 +167,7 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
             <label className="text-xs text-slate-400 block mb-1">New Password</label>
             <input
               type="password"
+              autoComplete="new-password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="At least 6 characters"
@@ -178,6 +180,7 @@ export default function ProfileView({ user, onUpdateProfile, onLogout }: Profile
             <label className="text-xs text-slate-400 block mb-1">Confirm New Password</label>
             <input
               type="password"
+              autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"

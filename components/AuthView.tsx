@@ -159,6 +159,7 @@ export default function AuthView({ onSuccess }: AuthViewProps) {
                 <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@altamira.com"
@@ -174,6 +175,7 @@ export default function AuthView({ onSuccess }: AuthViewProps) {
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
                   type="password"
+                  autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -245,6 +247,7 @@ export default function AuthView({ onSuccess }: AuthViewProps) {
                 <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3" />
                 <input
                   type="password"
+                  autoComplete="new-password"
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                   placeholder="At least 6 characters"
